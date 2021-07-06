@@ -15,7 +15,7 @@ import SingleTeacherPage from "./pages/TeacherDashboard/SingleTeacherPage";
 import SubjectDashboardPage from "./pages/SubjectDashboard";
 import SingleSubjectPage from "./pages/SubjectDashboard/SingleSubjectPage";
 
-import "./scss/styles.scss";
+import "./scss/styles.css";
 
 const App = () => (
   <Layout>
