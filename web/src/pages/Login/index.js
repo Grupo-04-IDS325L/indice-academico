@@ -6,8 +6,22 @@ export function LoginPage({ setToken }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const token = username + password;
-    setToken({ token });
+
+    let defaultUser = {
+      username: "admin",
+      password: "admin",
+    };
+
+    sessionStorage.setItem(defaultUser.username, defaultUser.password);
+    if (
+      defaultUser.username !== username ||
+      defaultUser.password !== password
+    ) {
+      alert("Verifique su usuario y contraseña");
+    } else {
+      const token = username + password;
+      setToken({ token });
+    }
   }
 
   return (
