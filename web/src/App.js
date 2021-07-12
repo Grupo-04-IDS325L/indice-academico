@@ -1,9 +1,13 @@
 import React from "react";
 import { Router } from "@reach/router";
 
+import { useToken } from "./hooks/use-token";
+
 import Layout from "./components/Layout";
 
 import HomePage from "./pages/Home";
+
+import { LoginPage } from "./pages/Login";
 
 import StudentDashboardPage from "./pages/StudentDashboard";
 import SingleStudentPage from "./pages/StudentDashboard/SingleStudentPage";
@@ -17,22 +21,34 @@ import SingleSubjectPage from "./pages/SubjectDashboard/SingleSubjectPage";
 
 import "./scss/styles.css";
 
-const App = () => (
-  <Layout>
-    <Router>
-      <HomePage path="/" />
+function App() {
+  const { token, setToken } = useToken();
 
-      <StudentDashboardPage path="/students" />
-      <SingleStudentPage path="/students/:studentId" />
-      <ArchivedStudentsPage path="/students/archived" />
+  if (!token) {
+    return (
+      <Layout token={token} setToken={setToken}>
+        <LoginPage setToken={setToken} />
+      </Layout>
+    );
+  }
 
-      <TeacherDashboardPage path="/teachers" />
-      <SingleTeacherPage path="/teachers/:teacherId" />
+  return (
+    <Layout token={token} setToken={setToken}>
+      <Router>
+        <HomePage path="/" />
 
-      <SubjectDashboardPage path="/subjects" />
-      <SingleSubjectPage path="/subjects/:subjectCode" />
-    </Router>
-  </Layout>
-);
+        <StudentDashboardPage path="/students" />
+        <SingleStudentPage path="/students/:studentId" />
+        <ArchivedStudentsPage path="/students/archived" />
+
+        <TeacherDashboardPage path="/teachers" />
+        <SingleTeacherPage path="/teachers/:teacherId" />
+
+        <SubjectDashboardPage path="/subjects" />
+        <SingleSubjectPage path="/subjects/:subjectCode" />
+      </Router>
+    </Layout>
+  );
+}
 
 export default App;
