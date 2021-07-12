@@ -12,11 +12,11 @@ export function LoginPage({ setToken }) {
 
   return (
     <div>
-      <h1>Login</h1>
+      {/* <h1>Iniciar sesión</h1> */}
       <div style={{ maxWidth: 300 }}>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>Username</label>
+            <label>Nombre</label>
             <input
               type="text"
               value={username}
@@ -24,7 +24,7 @@ export function LoginPage({ setToken }) {
             />
           </div>
           <div className="form-group">
-            <label>Password</label>
+            <label>Contraseña</label>
             <input
               type="password"
               value={password}
@@ -33,7 +33,7 @@ export function LoginPage({ setToken }) {
           </div>
 
           <button type="submit" className="button primary">
-            Submit
+            Iniciar sesión
           </button>
         </form>
       </div>
