@@ -150,7 +150,7 @@ export default class AddSubjectForm extends Component {
         </button>
 
         {this.state.success && (
-          <p className="state-message success-message">Estudiante creado</p>
+          <p className="state-message success-message">Materia creada</p>
         )}
         {this.state.error && (
           <p className="state-message error-message">{this.state.error}</p>
