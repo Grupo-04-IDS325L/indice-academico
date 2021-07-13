@@ -28,7 +28,7 @@ class SingleStudentPage extends Component {
       `${process.env.REACT_APP_API_URL}/students/${this.props.studentId}`
     );
     if (response.status === 404) {
-      // redirect to 404
+      window.location.href = "http://localhost:3000";
       return;
     }
     const data = await response.json();

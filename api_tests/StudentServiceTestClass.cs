@@ -24,5 +24,28 @@ namespace api_tests
             var student = studentService.GetByStudentId("1080024");
             Assert.IsTrue(student.Name == "testNoBorrar");
         }
+
+        [Test]
+        public void Test_Update_Student_Name_From_Juan_To_John()
+        {
+            var config = new AcademicSystemDatabaseSettings{
+                StudentsCollectionName = "Students",
+                TeachersCollectionName = "Teachers",
+                SubjectsCollectionName = "Subjects",
+                GradesCollectionName = "Grades",
+                ConnectionString = "mongodb+srv://storedb-admin:mcPj8KHTKm2xW8cP@cluster0.hccog.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+                DatabaseName = "AcademicSystemDb"
+            };
+            IAcademicSystemDatabaseSettings IConfig = config;
+            var studentService = new StudentService(IConfig);
+            var student = new Student();
+            student.Name = "Juan";
+            student = studentService.Create(student);
+            student.Name = "John";
+            studentService.Update(student.Id, student);
+            var updStudent = studentService.Get(student.Id);
+            studentService.Remove(updStudent);
+            Assert.IsTrue(updStudent.Name == "John");
+        }
     }
 }
