@@ -7,6 +7,13 @@ describe('my first test', function(){
     })    
 })
 
+describe('login information', function(){
+    it('insert value into textbox', function(){
+        cy.get("input[type='text']").type('admin')
+        cy.get("input[type='password']").type('admin')
+    })
+})
+
 describe('insert student name', function(){
     it('insert value into textbox', function(){
         cy.get('input').type('ernesto')
