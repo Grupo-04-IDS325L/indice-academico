@@ -14,6 +14,12 @@ describe('login information', function(){
     })
 })
 
+describe('login', function(){
+    it('login into platform', function(){
+        cy.get('button').click()
+    })
+})
+
 describe('insert student name', function(){
     it('insert value into textbox', function(){
         cy.get('input').type('ernesto')
