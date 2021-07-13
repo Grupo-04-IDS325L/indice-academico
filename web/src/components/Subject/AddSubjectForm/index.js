@@ -7,7 +7,7 @@ const initialState = {
   teachers: [],
   selectedTeacherId: "",
   success: false,
-  error: ""
+  error: "",
 };
 
 export default class AddSubjectForm extends Component {
@@ -35,19 +35,19 @@ export default class AddSubjectForm extends Component {
     const data = await response.json();
 
     this.setState({
-      teachers: data
+      teachers: data,
     });
   }
 
   handleChange(e) {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   }
 
   handleSelectChange(e) {
     this.setState({
-      selectedTeacherId: e.target.value
+      selectedTeacherId: e.target.value,
     });
   }
 
@@ -62,9 +62,9 @@ export default class AddSubjectForm extends Component {
     const response = await fetch(`${process.env.REACT_APP_API_URL}/subjects`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ ...subjectObj, teacher: selectedTeacher })
+      body: JSON.stringify({ ...subjectObj, teacher: selectedTeacher }),
     });
     const data = await response.json();
 
@@ -138,7 +138,7 @@ export default class AddSubjectForm extends Component {
             onChange={this.handleSelectChange}
           >
             <option value="">Seleccionar Profesor...</option>
-            {this.state.teachers.map(teacher => (
+            {this.state.teachers.map((teacher) => (
               <option key={teacher.id} value={teacher.id}>
                 {teacher.name}
               </option>
