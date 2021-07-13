@@ -21,19 +21,19 @@ namespace asp_api.Models
 
         if (this.isWithdrawn) return "R";
 
-        if (this.NumericGrade > 59)
+        if (this.NumericGrade >= 60)
         {
           _literalGrade = "D";
         }
-        if (this.NumericGrade > 69)
+        if (this.NumericGrade >= 70)
         {
           _literalGrade = "C";
         }
-        if (this.NumericGrade > 79)
+        if (this.NumericGrade >= 80)
         {
           _literalGrade = "B";
         }
-        if (this.NumericGrade > 89)
+        if (this.NumericGrade >= 90)
         {
           _literalGrade = "A";
         }
