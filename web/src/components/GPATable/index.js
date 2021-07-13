@@ -13,6 +13,7 @@ const GPATable = ({ students }) => {
         <tr>
           <th>ID</th>
           <th>Nombre</th>
+          <th>Carrera</th>
           <th>Índice Académico</th>
           <th>Mención de Honores</th>
         </tr>
@@ -27,6 +28,7 @@ const GPATable = ({ students }) => {
             >
               <td>{student.studentId}</td>
               <td>{student.name}</td>
+              <td>{student.degree}</td>
               <td>
                 <strong>{student.gradePointAverage}</strong>
               </td>
