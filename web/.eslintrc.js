@@ -10,6 +10,8 @@ module.exports = {
     "plugin:react/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:cypress/recommended",
+    "react-app",
+    "react-app/jest",
   ],
   globals: {
     Atomics: "readonly",

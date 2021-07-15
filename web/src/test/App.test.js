@@ -1,10 +1,7 @@
-import React from "react";
-import ReactDOM from "react-dom";
+// import React from "react";
+// import ReactDOM from "react-dom";
 // import { render, unmountComponentAtNode } from "react-dom";
 // import { act } from "react-dom/test-utils";
-
-//Components
-import GradesTable from "../components/Student/GradesTable/index";
 
 // let container = null;
 // beforeEach(() => {
@@ -20,14 +17,6 @@ import GradesTable from "../components/Student/GradesTable/index";
 //   container = null;
 // });
 
-// it("Renders specific student in the list", () => {
-//   act(() => {
-//     render(<GradesTable />, container);
-//   });
-//   expect(container.textContent).toBe("John Ford");
-// });
-
-it("Renders without crashing", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<GradesTable />, div);
+test("My first test", function () {
+  expect(0).toBe(0);
 });

@@ -8,7 +8,7 @@ export default class SubjectDashboardPage extends Component {
     super(props);
 
     this.state = {
-      subjects: []
+      subjects: [],
     };
 
     this.getSubjects = this.getSubjects.bind(this);
@@ -18,9 +18,8 @@ export default class SubjectDashboardPage extends Component {
     const response = await fetch(`${process.env.REACT_APP_API_URL}/subjects`);
     const data = await response.json();
 
-    console.log(data);
     this.setState({
-      subjects: data
+      subjects: data,
     });
   }
 

@@ -1,161 +1,112 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 
-const initialState = {
-  code: "",
-  name: "",
-  credit: 0,
-  teachers: [],
-  selectedTeacherId: "",
-  success: false,
-  error: "",
-};
+export default function AddSubjectForm() {
+  const [code, setCode] = useState("");
+  const [subjectName, setSubjectName] = useState("");
+  const [credit, setCredit] = useState("");
+  const [selectedTeacherId, setSelectedTeacherId] = useState("");
 
-export default class AddSubjectForm extends Component {
-  constructor(props) {
-    super(props);
+  const [teachers, setTeachers] = useState([]);
+  const [success, setSuccess] = useState(false);
+  const [errors, setErrors] = useState(null);
 
-    this.state = initialState;
-
-    this.getTeachers = this.getTeachers.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSelectChange = this.handleSelectChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  async getTeacher() {
-    const response = await fetch(
-      `${process.env.REACT_APP_API_URL}/teachers/${this.state.selectedTeacherId}`
-    );
-    const data = await response.json();
-    return data;
-  }
-
-  async getTeachers() {
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/teachers`);
-    const data = await response.json();
-
-    this.setState({
-      teachers: data,
-    });
-  }
-
-  handleChange(e) {
-    this.setState({
-      [e.target.name]: e.target.value,
-    });
-  }
-
-  handleSelectChange(e) {
-    this.setState({
-      selectedTeacherId: e.target.value,
-    });
-  }
-
-  async handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    const selectedTeacher = (await this.getTeacher()).teacher;
-    const { teachers, teacher, success, error, ...subjectObj } = this.state;
-    if (subjectObj.credit === "") {
-      subjectObj.credit = 0;
-    }
+    const selectedTeacher = teachers.find(
+      (teacher) => teacher.id === selectedTeacherId
+    );
 
     const response = await fetch(`${process.env.REACT_APP_API_URL}/subjects`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ ...subjectObj, teacher: selectedTeacher }),
+      body: JSON.stringify({
+        credit: credit === "" ? 0 : credit,
+        code,
+        name: subjectName,
+        teacher: selectedTeacher,
+      }),
     });
     const data = await response.json();
 
-    console.log(data);
+    setSuccess(data.success);
+    setErrors(data.error || null);
+  }
 
-    if (data.success) {
-      this.setState({ ...initialState, success: true });
-      this.props.postSubmit();
-    } else {
-      console.error(data.error);
-      this.setState({ error: data.error });
+  useEffect(() => {
+    async function getTeachers() {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/teachers`);
+      const data = await response.json();
+
+      setTeachers(data);
     }
-  }
+    getTeachers();
+  }, []);
 
-  componentDidMount() {
-    this.getTeachers();
-  }
+  return (
+    <form onSubmit={handleSubmit}>
+      <div className="form-group">
+        <label htmlFor="code">Código</label>
+        <input
+          type="text"
+          name="code"
+          id="code"
+          value={code}
+          className="form-control"
+          onChange={(e) => setCode(e.target.value)}
+          required
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="name">Nombre de la Materia</label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          value={subjectName}
+          className="form-control"
+          onChange={(e) => setSubjectName(e.target.value)}
+          required
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="credit">Créditos</label>
+        <input
+          type="text"
+          name="credit"
+          id="credit"
+          value={credit}
+          className="form-control"
+          onChange={(e) => setCredit(e.target.value)}
+          required
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="teacher">Profesor</label>
+        <select
+          name="teacher"
+          id="teacher"
+          className="form-control"
+          value={selectedTeacherId}
+          onChange={(e) => setSelectedTeacherId(e.target.value)}
+        >
+          <option value="">Seleccionar Profesor...</option>
+          {teachers.map((teacher) => (
+            <option key={teacher.id} value={teacher.id}>
+              {teacher.name}
+            </option>
+          ))}
+        </select>
+      </div>
+      <button type="submit" className="button primary">
+        Crear
+      </button>
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.teachers !== prevState.teachers) {
-      this.getTeachers();
-    }
-  }
-
-  render() {
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="code">Código</label>
-          <input
-            type="text"
-            name="code"
-            id="code"
-            value={this.state.code}
-            className="form-control"
-            onChange={this.handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="name">Nombre de la Materia</label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            value={this.state.name}
-            className="form-control"
-            onChange={this.handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="credit">Créditos</label>
-          <input
-            type="number"
-            name="credit"
-            id="credit"
-            value={this.state.credit}
-            className="form-control"
-            onChange={this.handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="teacher">Profesor</label>
-          <select
-            name="teacher"
-            id="teacher"
-            className="form-control"
-            value={this.state.selectedTeacherId}
-            onChange={this.handleSelectChange}
-          >
-            <option value="">Seleccionar Profesor...</option>
-            {this.state.teachers.map((teacher) => (
-              <option key={teacher.id} value={teacher.id}>
-                {teacher.name}
-              </option>
-            ))}
-          </select>
-        </div>
-        <button type="submit" className="button primary">
-          Crear
-        </button>
-
-        {this.state.success && (
-          <p className="state-message success-message">Materia creada</p>
-        )}
-        {this.state.error && (
-          <p className="state-message error-message">{this.state.error}</p>
-        )}
-      </form>
-    );
-  }
+      {success && (
+        <p className="state-message success-message">Estudiante creado</p>
+      )}
+      {errors && <p className="state-message error-message">{errors}</p>}
+    </form>
+  );
 }
