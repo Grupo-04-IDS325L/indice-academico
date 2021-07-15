@@ -1,5 +1,0 @@
-- Perform CRUD operations on Students
-- Perform CRUD operations on Subjects
-- Perform CRUD operations on Teachers
-- Perform CRUD operations on Grades
-- System should generate a Report of Students ordered from highest to lowest by Grade
