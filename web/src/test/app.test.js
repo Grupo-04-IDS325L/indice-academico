@@ -1,6 +1,22 @@
-// El path relativo de lo que quieren probar va en require:
-//const comp = require("../components/Student/GradesTable/index");
+// import React from "react";
+// import ReactDOM from "react-dom";
+// import { render, unmountComponentAtNode } from "react-dom";
+// import { act } from "react-dom/test-utils";
 
-test("test jest", () => {
-	expect(true).toBe(true);
+// let container = null;
+// beforeEach(() => {
+//   // setup a DOM element as a render target
+//   container = document.createElement("div");
+//   document.body.appendChild(container);
+// });
+
+// afterEach(() => {
+//   // cleanup on exiting
+//   unmountComponentAtNode(container);
+//   container.remove();
+//   container = null;
+// });
+
+test("My first test", function () {
+  expect(0).toBe(0);
 });

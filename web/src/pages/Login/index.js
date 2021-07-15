@@ -30,16 +30,18 @@ export function LoginPage({ setToken }) {
       <div style={{ maxWidth: 300 }}>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>Nombre</label>
+            <label htmlFor="name">Nombre</label>
             <input
+              id="name"
               type="text"
               value={username}
               onChange={(e) => setUserName(e.target.value)}
             />
           </div>
           <div className="form-group">
-            <label>Contraseña</label>
+            <label htmlFor="password">Contraseña</label>
             <input
+              id="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}

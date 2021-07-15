@@ -1,7 +1,7 @@
 import React from "react";
 import { navigate } from "@reach/router";
 
-const handleClick = e => {
+const handleClick = (e) => {
   const gradeId = e.currentTarget.dataset.gradeId;
   navigate(`/grades/${gradeId}`);
 };
@@ -19,7 +19,7 @@ const GradesTable = ({ grades }) => {
       </thead>
       <tbody>
         {grades.length > 0 ? (
-          grades.map(grade => (
+          grades.map((grade) => (
             <tr key={grade.id} onClick={handleClick} data-grade-id={grade.id}>
               <td>{grade.subject.name}</td>
               <td>{grade.subject.credit}</td>
