@@ -32,8 +32,8 @@ export default class RemoveSubjectButton extends Component {
 
     if (data.success) {
       console.log(data);
-      // alert("Materia eliminada.");
-      // navigate("/subjects");
+      alert("Materia eliminada.");
+      navigate("/subjects");
     } else {
       console.error(data.error);
     }
