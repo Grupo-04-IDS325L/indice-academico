@@ -12,7 +12,7 @@ export default class UpdateSubjectForm extends Component {
       credit: "",
       teacher: {},
       teachers: [],
-      selectedTeacherId: ""
+      selectedTeacherId: "",
     };
 
     this.getTeacher = this.getTeacher.bind(this);
@@ -36,19 +36,19 @@ export default class UpdateSubjectForm extends Component {
     const data = await response.json();
 
     this.setState({
-      teachers: data
+      teachers: data,
     });
   }
 
   handleChange(e) {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   }
 
   handleSelectChange(e) {
     this.setState({
-      selectedTeacherId: e.target.value
+      selectedTeacherId: e.target.value,
     });
   }
 
@@ -63,17 +63,23 @@ export default class UpdateSubjectForm extends Component {
       {
         method: "PUT",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(
           removeEmptyFields({ ...subjectObj, teacher: selectedTeacher })
-        )
+        ),
       }
     );
     const data = await response.json();
 
     if (data.success) {
-      console.log("updated successfully");
+      // console.log("updated successfully");
+      const stateMessage = document.getElementById("state-message");
+      stateMessage.classList.add("state-message");
+      const message = document.createTextNode(
+        "Materia actualizado exitosamente"
+      );
+      stateMessage.appendChild(message);
       this.props.postSubmit();
     } else {
       console.error(data.error);
@@ -83,12 +89,12 @@ export default class UpdateSubjectForm extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (this.props.code !== prevProps.code) {
       this.setState({
-        code: this.props.code
+        code: this.props.code,
       });
     }
     if (this.props.teacherId !== prevProps.teacherId) {
       this.setState({
-        selectedTeacherId: this.props.teacherId
+        selectedTeacherId: this.props.teacherId,
       });
     }
   }
@@ -132,7 +138,7 @@ export default class UpdateSubjectForm extends Component {
             onChange={this.handleSelectChange}
           >
             <option value="">Seleccionar Profesor...</option>
-            {this.state.teachers.map(teacher => (
+            {this.state.teachers.map((teacher) => (
               <option key={teacher.id} value={teacher.id}>
                 {teacher.name}
               </option>
@@ -146,6 +152,7 @@ export default class UpdateSubjectForm extends Component {
         <button type="submit" className="button primary">
           Actualizar
         </button>
+        <p id="state-message" class="success-message"></p>
       </form>
     );
   }
