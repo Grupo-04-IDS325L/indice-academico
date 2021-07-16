@@ -72,7 +72,7 @@ export default class UpdateSubjectForm extends Component {
     );
     const data = await response.json();
 
-    if (data.success) {
+    if (data.success && this.state.credit > 0) {
       // console.log("updated successfully");
       const stateMessage = document.getElementById("state-message");
       stateMessage.classList.add("state-message");
@@ -82,6 +82,7 @@ export default class UpdateSubjectForm extends Component {
       stateMessage.appendChild(message);
       this.props.postSubmit();
     } else {
+      alert("La cantidad de créditos no puede ser un número negativo");
       console.error(data.error);
     }
   }
