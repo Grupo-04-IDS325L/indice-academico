@@ -1,0 +1,19 @@
+.subjects-dashboard-page {
+  .flex-wrapper {
+    // border: 1px solid #000;
+    display: flex;
+
+    & > * {
+      margin: 0 0.5rem;
+    }
+
+    .subjects-table-item {
+      flex: 1 1;
+    }
+
+    .add-subject-item {
+      flex: none;
+      // border: 1px solid #000;
+    }
+  }
+}
