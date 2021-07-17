@@ -8,7 +8,7 @@ export default class UpdateTeacherForm extends Component {
 
     this.state = {
       teacherId: "",
-      name: ""
+      name: "",
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -17,7 +17,7 @@ export default class UpdateTeacherForm extends Component {
 
   handleChange(e) {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   }
 
@@ -28,16 +28,22 @@ export default class UpdateTeacherForm extends Component {
       {
         method: "PUT",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ ...removeEmptyFields(this.state) })
+        body: JSON.stringify({ ...removeEmptyFields(this.state) }),
       }
     );
     const data = await response.json();
 
     console.log(data);
     if (data.success) {
-      console.log("updated successfully");
+      // console.log("updated successfully");
+      const stateMessage = document.getElementById("state-message");
+      stateMessage.classList.add("state-message");
+      const message = document.createTextNode(
+        "Profesor actualizado exitosamente"
+      );
+      stateMessage.appendChild(message);
       this.props.postSubmit();
     } else {
       console.error(data.error);
@@ -47,7 +53,7 @@ export default class UpdateTeacherForm extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (this.props.teacherId !== prevState.teacherId) {
       this.setState({
-        teacherId: this.props.teacherId
+        teacherId: this.props.teacherId,
       });
     }
   }
@@ -71,6 +77,7 @@ export default class UpdateTeacherForm extends Component {
         <button type="submit" className="button primary">
           Actualizar
         </button>
+        <p id="state-message" class="success-message"></p>
       </form>
     );
   }
